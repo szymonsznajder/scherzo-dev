@@ -8,7 +8,7 @@
             "id": "library",
             "title": "Library",
             "environments": ["x-edit"],
-            "url": "/tools/sidekick/library2.html",
+            "url": "/tools/sidekick/library.html",
             "includePaths": ["**.docx**"]
     },
         {
