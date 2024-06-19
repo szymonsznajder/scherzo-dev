@@ -10,8 +10,16 @@
  * governing permissions and limitations under the License.
  */
 
+ 
+
 :root {
   /* colors */
+  --color-white: #fff;
+  --color-dark-blue: #1d3b5e;
+  --color-blue: #27a9de;
+  --color-gold: #f9d50a;
+  --color-black: #000;
+
   --link-color: #035fe6;
   --link-hover-color: #136ff6;
   --background-color: white;
@@ -20,14 +28,13 @@
   --text-color: black;
 
   /* fonts */
-  --body-font-family: roboto, roboto-fallback;
-  --heading-font-family: var(--body-font-family);
-  --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
+  --body-font-family: 'Montserrat-Regular';
+  --heading-font-family: 'Caveat-Bold';
 
   /* body sizes */
-  --body-font-size-m: 22px;
-  --body-font-size-s: 18px;
-  --body-font-size-xs: 16px;
+  --body-font-size-m: 18px;
+  --body-font-size-s: 16px;
+  --body-font-size-xs: 14px;
 
   /* heading sizes */
   --heading-font-size-xxl: 48px;
@@ -50,6 +57,7 @@
 
 @media (width >= 900px) {
   :root {
+    --heading-font-size-xxxl: 100px;
     --heading-font-size-xxl: 60px;
     --heading-font-size-xl: 48px;
     --heading-font-size-l: 36px;
@@ -87,12 +95,12 @@ h4, h5, h6 {
   scroll-margin: calc(var(--nav-height) + 1em);
 }
 
-h1 { font-size: var(--heading-font-size-xxl) }
-h2 { font-size: var(--heading-font-size-xl) }
-h3 { font-size: var(--heading-font-size-l) }
-h4 { font-size: var(--heading-font-size-m) }
-h5 { font-size: var(--heading-font-size-s) }
-h6 { font-size: var(--heading-font-size-xs) }
+h1 { font-size: var(--heading-font-size-xxl);}
+h2 { font-size: var(--heading-font-size-xl);}
+h3 { font-size: var(--heading-font-size-l);}
+h4 { font-size: var(--heading-font-size-m);}
+h5 { font-size: var(--heading-font-size-s);}
+h6 { font-size: var(--heading-font-size-xs);}
 
 p, dl, ol, ul, pre, blockquote {
   margin-top: 1em;
