@@ -1,0 +1,97 @@
+/* Page navigation list links by Szymon */
+main .list-container {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.list-container.section {
+    padding-top: 0;
+}
+
+.list-container ul {
+    padding: var(--spacing-l) 0;
+    margin: 0;
+    list-style: none;
+    gap: var(--spacing-s);
+    display: flex;
+    flex-direction: column;
+}
+
+.list-container li {
+    margin-bottom: 0;
+}
+
+.list-container a {
+    text-transform: uppercase;
+    color: var(--color-black);
+}
+
+.list-container a.current,
+.list-container a:hover,
+.list-container a:focus,
+.list-container a:focus-visible {
+    text-decoration: none;
+    color: var(--color-black);
+    border-bottom: 2px solid var(--color-black);
+    text-shadow: 0 0 1px var(--color-black);
+}
+
+.list-container.bg-dark a {
+    color: var(--color-white);
+}
+
+.list-container.bg-dark a.current,
+.list-container.bg-dark a:hover,
+.list-container.bg-dark a:focus,
+.list-container.bg-dark a:focus-visible {
+    text-decoration: none;
+    color: var(--color-white);
+    border-bottom: 2px solid var(--color-white);
+    text-shadow: 0 0 1px var(--color-white);
+}
+
+@media (width >= 900px) {
+    .list-container ul {
+        gap: var(--spacing-m);
+        flex-direction: row;
+    }
+}
+
+/* Quick links Block */
+.quick-links ul {
+    margin: 0;
+    padding: 1rem;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    background: black;
+}
+
+.quick-links ul li,
+.quick-links ul li a {
+    color: white;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.quick-links ul li a:hover,
+.quick-links ul li a:focus {
+    color: gold;
+    border-bottom: 1px solid gold;
+}
+
+.quick-links ul li:last-child {
+    padding: 0;
+    border: none;
+}
+
+@media (width >= 900px) {
+    .quick-links ul {
+        flex-direction: row;
+    }
+
+    .quick-links ul li {
+        padding-right: 1rem;
+        border-right: 1px solid gold;
+    }
+}
