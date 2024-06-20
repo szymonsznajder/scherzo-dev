@@ -64,7 +64,7 @@ main .list-container {
     display: inline-flex;
     flex-direction: column;
     gap: 0.9rem;
-    background: black;
+    background: var(--color-dark-blue);
 }
 
 .quick-links ul li,
@@ -72,12 +72,13 @@ main .list-container {
     color: white;
     line-height: 1;
     text-decoration: none;
+    font-size: var(--body-font-size-xs);
 }
 
 .quick-links ul li a:hover,
 .quick-links ul li a:focus {
     color: gold;
-    border-bottom: 1px solid gold;
+    border-bottom: 1px solid var(--color-gold);
 }
 
 .quick-links ul li:last-child {
@@ -92,6 +93,11 @@ main .list-container {
 
     .quick-links ul li {
         padding-right: 1rem;
-        border-right: 1px solid gold;
+        border-right: 1px solid var(--color-blue);
+    }
+
+    .quick-links ul li,
+    .quick-links ul li a {
+        font-size: var(--body-font-size-m);
     }
 }
