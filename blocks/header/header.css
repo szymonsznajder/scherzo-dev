@@ -1,3 +1,5 @@
+/* stylelint-disable no-descending-specificity */
+
 /* header and nav layout */
 header .nav-wrapper {
   /* background-color: var(--background-color); */
@@ -268,17 +270,9 @@ header nav .nav-tools {
   top: 0;
 }
 
-header nav .nav-sections ul > li > ul {
-  margin-top: 300px;
-}
-
 header nav .nav-sections ul ul,
-  header nav .nav-sections ul ul ul{
+header nav .nav-sections ul ul ul{
   transform: translateX(-150%);
-}
-
-.nav-sections ul > li[aria-expanded="false"] ul {
-
 }
 
 .nav-sections ul > li[aria-expanded="false"] ul {

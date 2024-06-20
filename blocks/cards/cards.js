@@ -13,8 +13,8 @@ export default function decorate(block) {
     while (row.firstElementChild) li.append(row.firstElementChild);
     [...li.children].forEach((div) => {
       const HEADING = div.querySelector('h3');
-      if (div.children.length === 1 && div.querySelector('picture')) { 
-        div.className = CARD_IMAGE; 
+      if (div.children.length === 1 && div.querySelector('picture')) {
+        div.className = CARD_IMAGE;
       } else if (HEADING) {
         div.className = CARD_TITLE;
         HEADING.classList.add(CARD_HEADING);

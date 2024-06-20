@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
@@ -101,7 +103,7 @@ function removeMovementClasses() {
   const firstLevelUl = document.querySelector('.nav-sections > .default-content-wrapper > ul');
   const secondLevelUls = document.querySelectorAll('.nav-sections > .default-content-wrapper > ul > li > ul');
   firstLevelUl.classList.remove('moved25', 'moved50');
-  secondLevelUls.forEach(ul => ul.classList.remove('moved25'));
+  secondLevelUls.forEach((ul) => ul.classList.remove('moved25'));
 }
 
 function attachClickListeners(li) {
