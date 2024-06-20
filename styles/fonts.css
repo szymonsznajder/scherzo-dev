@@ -25,3 +25,17 @@
   font-display: swap;
   src: url('../fonts/Montserrat-Regular.woff') format('woff');
 }
+
+@font-face {
+  font-family: 'Montserrat-bold';
+  font-style: normal;
+  font-display: swap;
+  src: url('../fonts/Montserrat-bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Montserrat-bold';
+  font-style: normal;
+  font-display: swap;
+  src: url('../fonts/Montserrat-bold.woff') format('woff');
+}
