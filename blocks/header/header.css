@@ -254,3 +254,33 @@ header nav .nav-tools {
 }
 
 
+.nav-sections {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.nav-sections ul {
+  transition: transform 0.3s ease;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+header nav .nav-sections ul > li > ul {
+  margin-top: 300px;
+}
+
+header nav .nav-sections ul ul,
+  header nav .nav-sections ul ul ul{
+  transform: translateX(-150%);
+}
+
+.nav-sections ul > li[aria-expanded="false"] ul {
+
+}
+
+.nav-sections ul > li[aria-expanded="false"] ul {
+  transform: translateX(0%);
+}
