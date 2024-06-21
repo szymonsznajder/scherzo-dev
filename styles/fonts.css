@@ -1,40 +1,40 @@
 @font-face {
-  font-family: 'Caveat-Bold';
+  font-family: Caveat-Bold;
   font-style: normal;
   font-display: swap;
   src: url('../font/Caveat-Bold.woff') format('woff');
 }
 
 @font-face {
-  font-family: 'Caveat-Bold';
+  font-family: Caveat-Bold;
   font-style: normal;
   font-display: swap;
   src: url('../fonts/Caveat-Bold.woff') format('woff2');
 }
 
 @font-face {
-  font-family: 'Montserrat-Regular';
+  font-family: Montserrat-Regular;
   font-style: normal;
   font-display: swap;
   src: url('../fonts/Montserrat-Regular.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Montserrat-Regular';
+  font-family: Montserrat-Regular;
   font-style: normal;
   font-display: swap;
   src: url('../fonts/Montserrat-Regular.woff') format('woff');
 }
 
 @font-face {
-  font-family: 'Montserrat-Light';
+  font-family: Montserrat-Light;
   font-style: normal;
   font-display: swap;
   src: url('../fonts/Montserrat-Light.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: 'Montserrat-light';
+  font-family: Montserrat-light;
   font-style: normal;
   font-display: swap;
   src: url('../fonts/Montserrat-Light.woff') format('woff');

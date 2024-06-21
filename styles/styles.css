@@ -28,10 +28,10 @@
   --text-color: black;
 
   /* fonts */
-  --body-font-family: 'Montserrat-Regular';
-  --body-font-family-light: 'Montserrat-Light';
-  --body-font-family-bold: 'Montserrat-Bold';
-  --heading-font-family: 'Caveat-Bold';
+  --body-font-family: Montserrat-Regular;
+  --body-font-family-light: Montserrat-Light;
+  --body-font-family-bold: Montserrat-Bold;
+  --heading-font-family: Caveat-Bold;
 
   /* body sizes */
   --body-font-size-m: 18px;
