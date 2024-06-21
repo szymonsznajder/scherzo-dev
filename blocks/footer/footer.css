@@ -50,7 +50,7 @@ footer p {
 .parBtn {
   background-color: var(--color-black, 90%);
   display: inline-flex;
-  padding: var(--space-8);
+  padding: var(--space-8) var(--space-16);
 }
 
 footer .button-container a.button {
