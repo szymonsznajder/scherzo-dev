@@ -114,7 +114,7 @@ h3 { font-size: var(--heading-font-size-l);}
 
 h4 { 
   font-size: var(--heading-font-size-s);
-  font-family: var(--body-font-family-regular);
+  font-family: var(--body-font-family-light);
 }
 
 h5 { 
