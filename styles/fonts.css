@@ -12,12 +12,12 @@
   src: url('../fonts/Caveat-Bold.woff') format('woff2');
 } */
 
-/* @font-face {
+@font-face {
   font-family: Montserrat-Regular;
   font-style: normal;
   font-display: swap;
   src: url('../fonts/Montserrat-Regular.woff2') format('woff2');
-} */
+}
 
 @font-face {
   font-family: montserrat-regular;
@@ -26,12 +26,12 @@
   src: url('../fonts/Montserrat-Regular.woff') format('woff');
 }
 
-/* @font-face {
+@font-face {
   font-family: Montserrat-Light;
   font-style: normal;
   font-display: swap;
   src: url('../fonts/Montserrat-Light.woff2') format('woff2');
-} */
+}
 
 @font-face {
   font-family: montserrat-thin;
@@ -52,4 +52,19 @@
   font-style: normal;
   font-display: swap;
   src: url('../fonts/Montserrat-Bold.woff') format('woff');
+}
+
+
+@font-face {
+  font-family: montserrat-thin;
+  font-style: normal;
+  font-display: swap;
+  src: url('../fonts/Montserrat-Thin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: montserrat-bold;
+  font-style: normal;
+  font-display: swap;
+  src: url('../fonts/Montserrat-Bold.woff2') format('woff2');
 }
