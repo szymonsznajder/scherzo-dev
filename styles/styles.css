@@ -29,6 +29,8 @@
 
   /* fonts */
   --body-font-family: 'Montserrat-Regular';
+  --body-font-family-light: 'Montserrat-Light';
+  --body-font-family-bold: 'Montserrat-Bold';
   --heading-font-family: 'Caveat-Bold';
 
   /* body sizes */
@@ -50,9 +52,13 @@
 
 
   /* Spaces */
-  --space-65: 65px;
-  --space-45: 45px;
-  --space-35: 35px;
+  --space-66: 66px;
+  --space-46: 46px;
+  --space-36: 36px;
+  --space-26: 26px;
+  --space-16: 16px;
+  --space-12: 12px;
+  --space-8: 8px;
 }
 
 @font-face {
@@ -108,7 +114,7 @@ h3 { font-size: var(--heading-font-size-l);}
 
 h4 { 
   font-size: var(--heading-font-size-s);
-  font-family: var(--body-font-family);
+  font-family: var(--body-font-family-ligh);
 }
 
 h5 { 
