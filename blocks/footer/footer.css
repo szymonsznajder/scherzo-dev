@@ -7,29 +7,31 @@ footer {
 footer .footer {
   max-width: 1440px;
   margin: auto;
-  padding: 45px 75px 35px;
+  padding: 45px 75px 0;
 }
 
 footer .footer > div {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
   gap: var(--space-26);
-  flex-wrap: wrap;
 }
 
-footer .section {
-  width: 100%;
+footer .section:last-child {
+  min-width: 100%;
 }
 
 footer .section:last-child {
   border-top: 1px solid var(--color-blue);
-  padding: var(--space-16); 0;
-  margin-top: var(--space-16);
-  flex-basis: 100%;
+  padding: var(--space-16) 0;
+  grid-column: 1 / -1;
 }
 
 footer h4 {
   margin: 0 0 0.5rem;
+}
+
+footer a {
+  display: inline-block;
 }
 
 footer .icon {
@@ -42,7 +44,13 @@ footer svg {
 }
 
 footer p {
-  margin: 0 0 var(--space-16);;
+  margin: 0 0 var(--space-16);
+}
+
+.parBtn {
+  background-color: var(--color-black, 90%);
+  display: inline-flex;
+  padding: var(--space-8);
 }
 
 footer .button-container a.button {
@@ -50,15 +58,18 @@ footer .button-container a.button {
   padding: 0;
   margin: 0;
   border: none;
+  font-weight: normal;
   color: var(--color-gold); 
 }
 
 @media (width >= 900px) {
   footer .footer > div {
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-36);
   }
 
   footer .section {
-    width: 30%;
+
   }
 }
