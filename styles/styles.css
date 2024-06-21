@@ -47,6 +47,12 @@
 
   /* nav height */
   --nav-height: 64px;
+
+
+  /* Spaces */
+  --space-65: 65px;
+  --space-45: 45px;
+  --space-35: 35px;
 }
 
 @font-face {
@@ -99,8 +105,17 @@ h4, h5, h6 {
 h1 { font-size: var(--heading-font-size-xxl);}
 h2 { font-size: var(--heading-font-size-xl);}
 h3 { font-size: var(--heading-font-size-l);}
-h4 { font-size: var(--heading-font-size-m);}
-h5 { font-size: var(--heading-font-size-s);}
+
+h4 { 
+  font-size: var(--heading-font-size-s);
+  font-family: var(--body-font-family);
+}
+
+h5 { 
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-s);
+}
+
 h6 { font-size: var(--heading-font-size-xs);}
 
 p, dl, ol, ul, pre, blockquote {
@@ -131,8 +146,8 @@ main pre {
 
 /* links */
 a:any-link {
-  color: var(--link-color);
-  text-decoration: none;
+  color: var(--color-gold);
+  text-decoration: underline;
 }
 
 a:hover {

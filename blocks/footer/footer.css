@@ -1,14 +1,47 @@
 footer {
-  padding: 2rem;
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-s);
+  background-color: var(--color-dark-blue);
+  color: var(--color-white);
+  border-top: 1px solid var(--color-gold);
 }
 
 footer .footer {
-  max-width: 1200px;
+  max-width: 1440px;
   margin: auto;
+  padding: 45px 75px 35px;
 }
 
-footer .footer p {
+footer .footer > div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+footer .section {
+  width: 33%;
+}
+
+footer .section:last-child {
+  border-top: 1px solid var(--color-blue);
+  padding: 2rem 0;
+  margin-top: 2rem;
+  flex-basis: 100%;
+}
+
+
+footer h4 {
   margin: 0;
+
+}
+
+footer p {
+  margin: 0 0 1rem;
+}
+
+footer .button-container a.button {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  border: none;
+  color: var(--color-gold);
+  
 }
