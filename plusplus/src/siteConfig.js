@@ -23,7 +23,6 @@ import { } from './externalImage.js';
 import {} from '/config/config.js';
 import {} from '/plusplus/src/clientExpressions.js';
 
-
 const releaseVersion = 'plusplus 1.0.3';
 
 function debugMessage(message) {
