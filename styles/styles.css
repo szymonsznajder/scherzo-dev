@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
- @import url(bannerScroller.css);
+ @import url('./bannerScroller.css');
 
 :root {
   /* colors */
@@ -219,5 +219,5 @@ main .section.highlight {
 
 footer,
 header {
-  display: none;
+  /* display: none; */
 }
