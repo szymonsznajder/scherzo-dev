@@ -8,6 +8,7 @@ import {
   possibleMobileFix,
   swiftChangesToDOM,
 } from './reModelDom.js';
+import {} from './bannerScroller.js';
 import {
   constructGlobal,
 } from './variables.js';
@@ -21,6 +22,7 @@ import {
 import { } from './externalImage.js';
 import {} from '/config/config.js';
 import {} from '/plusplus/src/clientExpressions.js';
+
 
 const releaseVersion = 'plusplus 1.0.3';
 
