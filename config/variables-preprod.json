@@ -1,0 +1,21 @@
+{
+    "total": 1,
+    "offset": 0,
+    "limit": 1,
+    "data": [
+      {
+        "Item": "$system:mylocality$",
+        "Value": "preprod"
+      },{
+        "Item":"$system:allowtracking$",
+        "Value": "n - but make it y to start tracking"
+      }, {
+        "Item": "$system:abtastyscript$",
+        "Value": "https://try.abtasty.com/xxxxxxxxxxxxxx.js"
+      },{
+        "Item": "$system:cookiebotid$",
+        "Value": "xxxxxxxxxxxxxxx"
+      }
+    ],
+    ":type": "fallback"
+  }
