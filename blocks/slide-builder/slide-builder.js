@@ -19,7 +19,7 @@ export default async function decorate(block) {
   let targetNames = ['slides']; // Initialize targetNames with 'blog' as the default
 
   // Sort the filtered content by 'lastModified' in descending order
-  const sortedContent = filteredContent.sort((adate, b) => {
+  const sortedContent = content.sort((adate, b) => {
     const dateA = new Date(adate.lastModified);
     const dateB = new Date(b.lastModified);
     return dateB - dateA;
