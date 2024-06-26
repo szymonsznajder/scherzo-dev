@@ -6,7 +6,7 @@
 
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import {
-  a, div, li, p, h3, span, ul, img
+  div, p, h3, span
 } from '/plusplus/block-party/dom-helpers.js';
 import ffetch from '/plusplus/block-party/ffetch.js';
 
@@ -34,18 +34,29 @@ export default async function decorate(block) {
       return dateB - dateA;
     });
 
-  // Append sorted and filtered content to the block, obeying limits
-  block.append(
-    ul(
-      ...sortedContent.map((slide) => li(
-        div({ class: 'slide-image' },
-          createOptimizedPicture(slide.image, slide.headline, false, [{ width: '750' }]),
+    // Append sorted and filtered content to the block, obeying limits
+    block.append(
+            ...sortedContent.map((slide) => div(
+            div({ class: 'slide-image' },
+                createOptimizedPicture(slide.image, slide.headline, false, [{ width: '750' }]),
+            ),
+            div({ class: 'slides-body' },
+                h3((slide.title)),
+                p(slide.description),
+            ),
+
+            div({ class: 'slide-cards' },
+                span((slide.cards))
+            )
+            )
         ),
-        div({ class: 'slides-body' },
-          h3((slide.title)),
-          p(slide.description),
-        ),
-      )),
-    ),
-  );
+    );
+
+    const slideCards = document.querySelectorAll('slide-cards');
+    const filteredCards = slideCards.filter((cards) => {
+        // const isTemplatePath = cards.class.includes('/cards');
+        1 === 1;
+        // eslint-disable-next-line max-len
+        return isTemplatePath;
+      });
 }
