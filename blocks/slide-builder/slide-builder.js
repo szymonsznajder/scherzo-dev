@@ -30,8 +30,7 @@ export default async function decorate(block) {
     ul(
       ...sortedContent.map((slide) => li(
         div({ class: 'slide-image' },
-          img(createOptimizedPicture(slide.image, slide.headline, false, [{ width: '750' }]),
-          ),
+          createOptimizedPicture(slide.image, slide.headline, false, [{ width: '750' }]),
         ),
         div({ class: 'slides-body' },
           h3((slide.headline)),
