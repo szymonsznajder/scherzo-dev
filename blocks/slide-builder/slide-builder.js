@@ -33,7 +33,7 @@ export default async function decorate(block) {
           createOptimizedPicture(slide.image, slide.headline, false, [{ width: '750' }]),
         ),
         div({ class: 'slides-body' },
-          h3((slide.headline)),
+          h3((slide.title)),
           p(slide.description),
         ),
       )),
