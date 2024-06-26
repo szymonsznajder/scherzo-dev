@@ -25,6 +25,14 @@ export default async function decorate(block) {
     return dateB - dateA;
   });
 
+    // Filter content to exclude paths containing '/template' and the current page path
+    const filteredContent = content.filter((slide) => {
+    const isTemplatePath = slide.path.includes('/slides');
+
+    // eslint-disable-next-line max-len
+    return !isTemplatePath;
+    });
+
   // Append sorted and filtered content to the block, obeying limits
   block.append(
     ul(
