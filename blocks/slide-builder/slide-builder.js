@@ -51,12 +51,4 @@ export default async function decorate(block) {
             )
         ),
     );
-
-    const slideCards = document.querySelectorAll('slide-cards');
-    const filteredCards = slideCards.filter((cards) => {
-        // const isTemplatePath = cards.class.includes('/cards');
-        1 === 1;
-        // eslint-disable-next-line max-len
-        return isTemplatePath;
-      });
 }
