@@ -24,7 +24,7 @@ export default async function decorate(block) {
       const isTemplatePath = slide.path.includes('/slides');
       
       // eslint-disable-next-line max-len
-      return !isTemplatePath;
+      return isTemplatePath;
     });
     
     // Sort the filtered content by 'lastModified' in descending order
