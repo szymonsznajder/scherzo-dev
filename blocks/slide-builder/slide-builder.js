@@ -18,19 +18,20 @@ export default async function decorate(block) {
 
   let targetNames = ['slides']; // Initialize targetNames with 'blog' as the default
 
-  // Sort the filtered content by 'lastModified' in descending order
-  const sortedContent = content.sort((adate, b) => {
-    const dateA = new Date(adate.lastModified);
-    const dateB = new Date(b.lastModified);
-    return dateB - dateA;
-  });
 
-    // Filter content to exclude paths containing '/template' and the current page path
-    const filteredContent = content.filter((slide) => {
-    const isTemplatePath = slide.path.includes('/slides');
-
-    // eslint-disable-next-line max-len
-    return !isTemplatePath;
+  // Filter content to exclude paths containing '/template' and the current page path
+  const filteredContent = content.filter((slide) => {
+      const isTemplatePath = slide.path.includes('/slides');
+      
+      // eslint-disable-next-line max-len
+      return !isTemplatePath;
+    });
+    
+    // Sort the filtered content by 'lastModified' in descending order
+    const sortedContent = filteredContent.sort((adate, b) => {
+      const dateA = new Date(adate.lastModified);
+      const dateB = new Date(b.lastModified);
+      return dateB - dateA;
     });
 
   // Append sorted and filtered content to the block, obeying limits
