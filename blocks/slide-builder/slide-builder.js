@@ -6,7 +6,7 @@
 
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import {
-  div, p, h3, span,
+  div, p, h3,
 } from '/plusplus/block-party/dom-helpers.js';
 import ffetch from '/plusplus/block-party/ffetch.js';
 
