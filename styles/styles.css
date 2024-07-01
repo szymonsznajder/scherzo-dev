@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
- 
+ @import url('./bannerScroller.css');
 
 :root {
   /* colors */
@@ -19,16 +19,13 @@
   --color-blue: #27a9de;
   --color-gold: #f9d50a;
   --color-black: #000;
-
   --link-color: #035fe6;
   --link-hover-color: #136ff6;
   --background-color: white;
-  --light-color: #eee;
-  --dark-color: #ccc;
-  --text-color: black;
 
   /* fonts */
   --body-font-family: 'Montserrat-Regular';
+  --body-bold-family: 'Montserrat-bold';
   --heading-font-family: 'Caveat-Bold';
 
   /* body sizes */
@@ -222,5 +219,5 @@ main .section.highlight {
 
 footer,
 header {
-  display: none;
+  /* display: none; */
 }
