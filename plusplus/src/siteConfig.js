@@ -8,7 +8,6 @@ import {
   possibleMobileFix,
   swiftChangesToDOM,
 } from './reModelDom.js';
-import {} from './bannerScroller.js';
 import {
   constructGlobal,
 } from './variables.js';

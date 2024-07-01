@@ -6,58 +6,43 @@
 
 import { createOptimizedPicture } from '../../scripts/aem.js';
 import {
-  div, p, h3, span
+  div, p, h3, span,
 } from '/plusplus/block-party/dom-helpers.js';
 import ffetch from '/plusplus/block-party/ffetch.js';
 
 export default async function decorate(block) {
 // Select the element by its class
-  const element = document.querySelector('.slide-builder-container');
+  // const element = document.querySelector('.slide-builder-container');
 
   const content = await ffetch('/query-index.json').all();
 
-  let targetNames = ['slides']; // Initialize targetNames with 'blog' as the default
-
+  // const targetNames = ['slides']; // Initialize targetNames with 'blog' as the default
 
   // Filter content to exclude paths containing '/template' and the current page path
   const filteredContent = content.filter((slide) => {
-      const isTemplatePath = slide.path.includes('/slides');
-      
-      // eslint-disable-next-line max-len
-      return isTemplatePath;
-    });
-    
-    // Sort the filtered content by 'lastModified' in descending order
-    const sortedContent = filteredContent.sort((adate, b) => {
-      const dateA = new Date(adate.lastModified);
-      const dateB = new Date(b.lastModified);
-      return dateB - dateA;
-    });
+    const isTemplatePath = slide.path.includes('/slides');
 
-    // Append sorted and filtered content to the block, obeying limits
-    block.append(
-            ...sortedContent.map((slide) => div(
-            div({ class: 'slide-image' },
-                createOptimizedPicture(slide.image, slide.headline, false, [{ width: '750' }]),
-            ),
-            div({ class: 'slides-body' },
-                h3((slide.title)),
-                p(slide.description),
-            ),
+    // eslint-disable-next-line max-len
+    return isTemplatePath;
+  });
 
-            div({ class: 'slide-cards' },
-                span((slide.cards))
-            )
-            )
-        ),
-    );
+  // Sort the filtered content by 'lastModified' in descending order
+  const sortedContent = filteredContent.sort((adate, b) => {
+    const dateA = new Date(adate.lastModified);
+    const dateB = new Date(b.lastModified);
+    return dateB - dateA;
+  });
 
-    const slideCards = document.querySelector('.cards');
-    console.log(slideCards)
-    const filteredCards = slideCards.filter((cards) => {
-        // const isTemplatePath = cards.class.includes('/cards');
-        1 === 1;
-        // eslint-disable-next-line max-len
-        return isTemplatePath;
-      });
+  block.append(
+    ...sortedContent.map((slide) => div(
+      div({ class: 'slide-image' },
+        createOptimizedPicture(slide.image, slide.headline, false, [{ width: '1200' }]),
+      ),
+      div({ class: 'slides-body' },
+        h3((slide.title)),
+        p(slide.description),
+      ),
+    ),
+    ),
+  );
 }
