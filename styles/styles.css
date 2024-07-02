@@ -10,8 +10,6 @@
  * governing permissions and limitations under the License.
  */
 
- @import url('./bannerScroller.css');
-
 :root {
   /* colors */
   --color-white: #fff;
