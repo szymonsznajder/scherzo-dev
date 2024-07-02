@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
@@ -30,31 +32,28 @@ function focusNavSection() {
   document.activeElement.addEventListener('keydown', openOnKeydown);
 }
 
-/**
- * Toggles all nav sections
- * @param {Element} sections The container element
- * @param {Boolean} expanded Whether the element should be expanded or collapsed
- */
 function toggleAllNavSections(sections, expanded = false) {
   sections.querySelectorAll('.nav-sections .default-content-wrapper > ul > li').forEach((section) => {
     section.setAttribute('aria-expanded', expanded);
   });
 }
 
-/**
- * Toggles the entire nav
- * @param {Element} nav The container element
- * @param {Element} navSections The nav sections within the container element
- * @param {*} forceExpanded Optional param to force nav expand behavior when not null
- */
 function toggleMenu(nav, navSections, forceExpanded = null) {
   const expanded = forceExpanded !== null ? !forceExpanded : nav.getAttribute('aria-expanded') === 'true';
   const button = nav.querySelector('.nav-hamburger button');
   document.body.style.overflowY = expanded ? '' : 'hidden';
   nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-  toggleAllNavSections(navSections, expanded ? 'false' : 'true');
   button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
-  // enable nav dropdown keyboard accessibility
+
+  navSections.querySelectorAll('li').forEach((li) => {
+    li.setAttribute('aria-expanded', 'false');
+    const ul = li.querySelector('ul');
+    if (ul) {
+      ul.classList.add('close');
+      ul.classList.remove('open');
+    }
+  });
+
   const navDrops = navSections.querySelectorAll('.nav-drop');
   navDrops.forEach((drop) => {
     if (!drop.hasAttribute('tabindex')) {
@@ -63,26 +62,66 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
       drop.addEventListener('focus', focusNavSection);
     }
   });
-  // enable menu collapse on escape keypress
+
   if (!expanded) {
-    // collapse menu on escape press
     window.addEventListener('keydown', closeOnEscape);
   } else {
     window.removeEventListener('keydown', closeOnEscape);
   }
+
+  if (expanded) {
+    removeMovementClasses();
+  }
 }
 
-/**
- * loads and decorates the header, mainly the nav
- * @param {Element} block The header block element
- */
+function toggleLiAndUl(li) {
+  const expanded = li.getAttribute('aria-expanded') === 'true';
+  li.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  const ul = li.querySelector('ul');
+  if (ul) {
+    ul.classList.toggle('open');
+    ul.classList.toggle('close');
+  }
+}
+
+function handleMovementClasses(li) {
+  const level = li.closest('.nav-sections > .default-content-wrapper > ul > li > ul') ? 2 : 1;
+  const firstLevelUl = li.closest('.nav-sections > .default-content-wrapper > ul');
+  const secondLevelUl = li.closest('ul');
+
+  if (level === 1 && secondLevelUl) {
+    firstLevelUl.classList.add('moved25');
+    firstLevelUl.classList.remove('moved50');
+  } else if (level === 2 && secondLevelUl) {
+    firstLevelUl.classList.add('moved50');
+    firstLevelUl.classList.remove('moved25');
+    secondLevelUl.classList.add('moved25');
+  }
+}
+
+function removeMovementClasses() {
+  const firstLevelUl = document.querySelector('.nav-sections > .default-content-wrapper > ul');
+  const secondLevelUls = document.querySelectorAll('.nav-sections > .default-content-wrapper > ul > li > ul');
+  firstLevelUl.classList.remove('moved25', 'moved50');
+  secondLevelUls.forEach((ul) => ul.classList.remove('moved25'));
+}
+
+function attachClickListeners(li) {
+  li.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleLiAndUl(li);
+    handleMovementClasses(li);
+  });
+
+  const nestedLis = li.querySelectorAll('ul > li');
+  nestedLis.forEach((nestedLi) => attachClickListeners(nestedLi));
+}
+
 export default async function decorate(block) {
-  // load nav as fragment
   const navMeta = getMetadata('nav');
   const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
   const fragment = await loadFragment(navPath);
 
-  // decorate nav DOM
   block.textContent = '';
   const nav = document.createElement('nav');
   nav.id = 'nav';
@@ -105,15 +144,10 @@ export default async function decorate(block) {
   if (navSections) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
       if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
-      navSection.addEventListener('click', () => {
-        const expanded = navSection.getAttribute('aria-expanded') === 'true';
-        toggleAllNavSections(navSections);
-        navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-      });
+      attachClickListeners(navSection);
     });
   }
 
-  // hamburger for all viewports
   const hamburger = document.createElement('div');
   hamburger.classList.add('nav-hamburger');
   hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">

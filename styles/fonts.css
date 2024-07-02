@@ -1,11 +1,11 @@
 @font-face {
-  font-family: caveat-bold;
+  font-family: Caveat-Bold;
   font-style: normal;
   font-display: swap;
   src: url('../font/Caveat-Bold.woff') format('woff');
 }
 
-/* @font-face {
+@font-face {
   font-family: Caveat-Bold;
   font-style: normal;
   font-display: swap;
@@ -20,51 +20,22 @@
 }
 
 @font-face {
-  font-family: montserrat-regular;
+  font-family: Montserrat-Regular;
   font-style: normal;
   font-display: swap;
   src: url('../fonts/Montserrat-Regular.woff') format('woff');
 }
 
 @font-face {
-  font-family: Montserrat-Light;
+  font-family: Montserrat-bold;
   font-style: normal;
   font-display: swap;
-  src: url('../fonts/Montserrat-Light.woff2') format('woff2');
+  src: url('../fonts/Montserrat-bold.woff2') format('woff2');
 }
 
 @font-face {
-  font-family: montserrat-thin;
+  font-family: Montserrat-bold;
   font-style: normal;
   font-display: swap;
-  src: url('../fonts/Montserrat-Thin.woff') format('woff');
-}
-
-@font-face {
-  font-family: montserrat-light;
-  font-style: normal;
-  font-display: swap;
-  src: url('../fonts/Montserrat-Light.woff') format('woff');
-}
-
-@font-face {
-  font-family: montserrat-bold;
-  font-style: normal;
-  font-display: swap;
-  src: url('../fonts/Montserrat-Bold.woff') format('woff');
-}
-
-
-@font-face {
-  font-family: montserrat-thin;
-  font-style: normal;
-  font-display: swap;
-  src: url('../fonts/Montserrat-Thin.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: montserrat-bold;
-  font-style: normal;
-  font-display: swap;
-  src: url('../fonts/Montserrat-Bold.woff2') format('woff2');
+  src: url('../fonts/Montserrat-bold.woff') format('woff');
 }
