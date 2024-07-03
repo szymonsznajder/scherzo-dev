@@ -12,10 +12,11 @@
   }
 
   .quote blockquote .quote-quotation::before {
-    content: url('../../icons/double-quote.svg');
+    content: '';
+    background: url('../../icons/double-quote.png');
     position: absolute;
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 46px;
     top: 0;
     left: -3rem;
   }
