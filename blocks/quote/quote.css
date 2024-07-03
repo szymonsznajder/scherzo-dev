@@ -7,7 +7,7 @@
   .quote blockquote .quote-quotation {
     font-size: 120%;
     border-left: 1px solid var(--color-gold);
-    padding: 1rem;
+    padding: 1rem 2rem;
     position: relative;
   }
 
