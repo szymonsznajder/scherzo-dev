@@ -15,6 +15,7 @@
   --color-white: #fff;
   --color-dark-blue: #1d3b5e;
   --color-blue: #27a9de;
+  --color-blue-dark: #1e2436;
   --color-gold: #f9d50a;
   --color-black: #000;
   --link-color: #035fe6;
@@ -157,22 +158,30 @@ a:hover {
 /* buttons */
 a.button:any-link, button {
   font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
   display: inline-block;
   box-sizing: border-box;
   text-decoration: none;
-  border: 2px solid transparent;
-  padding: 5px 30px;
+  border: 1px solid var(--color-gold);
+  padding: 14px 30px;
+  padding: var(--space-16) var(--space-36);
   text-align: center;
   font-style: normal;
   font-weight: 600;
   cursor: pointer;
-  color: var(--background-color);
-  background-color: var(--link-color);
+  color: var(--color-gold);
+  background-color: var(--color-blue-dark);
   margin: 16px 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-radius: 30px;
+}
+
+.button-container{
+  & strong a.button{
+    font-size: var(--heading-font-size-m);
+    border: none;
+  }
 }
 
 a.button:hover, a.button:focus, button:hover, button:focus  {
