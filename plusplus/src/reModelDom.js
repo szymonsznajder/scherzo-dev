@@ -24,6 +24,7 @@ export function removeMeta() {
     'theme',
     'template',
     'footer',
+    'breadcrumbs',
 
   ];
   const elements = document.querySelectorAll('meta[name]');
