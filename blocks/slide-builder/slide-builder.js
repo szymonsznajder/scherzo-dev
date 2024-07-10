@@ -25,11 +25,7 @@ export default async function decorate(block) {
 
     const slides = [];
     for (const slide of json.data) {
-      if (window.innerWidth > 799) {
-        slide.html = await fetchSlideHtml(slide.path);
-      } else {
-        slide.html = null;
-      }
+      slide.title = await fetchSlideHtml(slide.path);
       slides.push(slide);
     }
     return slides;
@@ -41,14 +37,15 @@ export default async function decorate(block) {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
 
-    const h2 = doc.querySelector('h2');
-    let firstParagraph = h2 ? h2.nextElementSibling : doc.querySelector('p');
+    // const h2 = doc.querySelector('h2');
+    // let firstParagraph = h2 ? h2.nextElementSibling : doc.querySelector('p');
 
-    while (firstParagraph && firstParagraph.tagName.toLowerCase() !== 'p') {
-      firstParagraph = firstParagraph.nextElementSibling;
-    }
+    // while (firstParagraph && firstParagraph.tagName.toLowerCase() !== 'p') {
+    //   firstParagraph = firstParagraph.nextElementSibling;
+    // }
 
-    return firstParagraph?.textContent.trim() || null;
+    const h1 = doc.querySelector('h1');
+    return h1?.textContent.trim() || null;
   }
 
   function setSlideBackground(slideItem, imageUrl) {
@@ -124,9 +121,11 @@ export default async function decorate(block) {
     slideItem.addEventListener('click', () => createPanel(slideData));
 
     // Fetch and append supporting text if available
-    if (!slideData.html && window.innerWidth <= 799) {
-      slideData.html = await fetchSlideHtml(path);
-    }
+    // if (!slideData.html && window.innerWidth <= 799) {
+    //   slideData.html = await fetchSlideHtml(path);
+    // }
+
+    slideData.html = await fetchSlideHtml(path);
 
     if (slideData.html) {
       const supportingText = fetchSupportingText(slideData.html);

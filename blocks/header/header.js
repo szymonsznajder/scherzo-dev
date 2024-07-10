@@ -194,6 +194,6 @@ export default async function decorate(block) {
   block.append(navWrapper);
 
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
-    navWrapper.prepend(await buildBreadcrumbs());
+    navWrapper.append(await buildBreadcrumbs());
   }
 }
