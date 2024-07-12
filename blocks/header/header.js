@@ -193,7 +193,9 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 
+  const heroWrapper = document.querySelector('.hero-wrapper');
+
   if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
-    navWrapper.append(await buildBreadcrumbs());
+    heroWrapper.append(await buildBreadcrumbs());
   }
 }
