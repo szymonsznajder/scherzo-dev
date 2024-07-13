@@ -166,6 +166,27 @@ export default async function decorate(block) {
     brandLink.closest('.button-container').className = '';
   }
 
+  // Hide logo on scroll down and reveal on scroll up
+  function fadeNavBrandOnScroll() {
+    let lastScrollTop = 0;
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (scrollTop > 200 && scrollTop > lastScrollTop) {
+        // Scrolling down
+        navBrand.style.opacity = '0';
+      } else if (scrollTop < 200) {
+        // Scrolling up and reaching minimum offset of 200px
+        navBrand.style.opacity = '1';
+      }
+
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
+    });
+  }
+
+  fadeNavBrandOnScroll();
+
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
     navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
