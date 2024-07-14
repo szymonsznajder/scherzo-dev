@@ -4,6 +4,10 @@ main .hero-container > div {
   
 main .hero-container {
   padding: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  min-height: 700px;
 }
 
 .hero {
