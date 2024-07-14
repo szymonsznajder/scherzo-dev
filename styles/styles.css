@@ -250,6 +250,6 @@ body:before {
   content: '';
   height: 300px;
   width: 100%;
-  background: rgb(30,36,54);
+  background: transparent;
   background: linear-gradient(180deg, rgba(30,36,54,0.9) 0%, rgba(29,59,94,0.7) 50%, rgba(0,131,255,0) 100%);
 }
