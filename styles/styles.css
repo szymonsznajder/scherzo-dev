@@ -247,7 +247,7 @@ main .section.highlight {
   box-shadow: 0 0 0 100vmax var(--color-dark-blue);
   clip-path: inset(0 -100vmax);
   background: var(--color-dark-blue);
-  margin-top: 800px;
+  /* margin-top: 800px; */
 }
 
 .header-wrapper {
