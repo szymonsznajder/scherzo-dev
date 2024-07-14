@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import { fetchPlaceholders, getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
