@@ -1,12 +1,12 @@
 export default function decorate(block) {
   const heroChild = block.firstElementChild;
   heroChild.classList.add('heroChild');
-  const elements = block.querySelectorAll('p');
+  // const elements = block.querySelectorAll('p');
   const imageWrapper = document.createElement('div');
   imageWrapper.classList.add('image');
-  const title = document.createElement('h1');
-  title.innerHTML = elements[1].innerHTML;
-  elements[1].parentNode.replaceChild(title, elements[1]);
+  // const title = document.createElement('h1');
+  // title.innerHTML = elements[1].innerHTML;
+  // elements[1].parentNode.replaceChild(title, elements[1]);
 
   const image = heroChild.querySelector('img');
   let lastScrollTop = 0;
@@ -15,15 +15,15 @@ export default function decorate(block) {
   function scrollHero() {
     window.addEventListener('scroll', () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      if (scrollTop > lastScrollTop) {
+      if (scrollTop > lastScrollTop && scale < 1.5) {
         // Scrolling down
-        scale += 0.1; // Increase the scale value for zoom in
+        scale = Math.min(scale + 0.01, 1.5); // Increase the scale value within the range with two decimal numbers
       } else {
         // Scrolling up
-        scale -= 0.1; // Decrease the scale value for zoom out
+        scale = Math.max(scale - 0.01, 1); // Decrease the scale value within the range with two decimal numbers
       }
 
-      heroChild.style.transform = `scale(${scale})`;
+      image.style.transform = `scale(${scale.toFixed(2)})`;
       lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
     });
   }
