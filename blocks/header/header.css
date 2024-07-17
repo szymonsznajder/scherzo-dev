@@ -225,9 +225,6 @@ header nav .nav-sections ul > li > ul > li {
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded="true"] > ul {
-    display: block;
-    position: absolute;
-    left: -1em;
     width: 200px;
     margin-top: 12px;
     padding: 1em;
@@ -255,4 +252,57 @@ header nav .nav-sections ul > li > ul > li {
 /* tools */
 header nav .nav-tools {
   grid-area: tools;
+}
+
+/*
+* Navigation slide-in effect
+*/
+header nav .nav-sections .menu  {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  padding: 0 10px 0 60px;
+  position: relative;
+  top: 0;
+  width: 33.333%;
+}
+header nav .nav-sections .menu.hide {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+header nav .nav-sections .menu.one {
+  padding: 0 10px 0 0;
+  transform: translateX(100%);
+  transition: all .3s ease;
+}
+header nav .nav-sections .menu.one.slide-in {
+  padding: 0 10px 0 0;
+  transform: translateX(0);
+}
+header nav .nav-sections .menu.two {
+  opacity: 0;
+  transform: translateX(50%);
+  transition: all .3s ease;
+  visibility: hidden;
+}
+header nav .nav-sections .menu.two.slide-in {
+  opacity: 1;
+  transform: translateX(0);
+  visibility: visible;
+}
+header nav .nav-sections .menu.three {
+  opacity: 0;
+  transform: translateX(50%);
+  transition: all .3s ease;
+  visibility: hidden;
+}
+header nav .nav-sections .menu.three.slide-in {
+  opacity: 1;
+  transform: translateX(0);
+  visibility: visible;
+}
+header nav .nav-sections .menu ul>li ul {
+  display: none;
 }
