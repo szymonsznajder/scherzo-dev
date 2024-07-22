@@ -65,6 +65,7 @@ header nav .nav-hamburger button {
   overflow: initial;
   text-overflow: initial;
   white-space: initial;
+  background: transparent;
 }
 
 header nav .nav-hamburger-icon,
@@ -159,6 +160,7 @@ header nav[aria-expanded="true"] .nav-sections {
   background-color: #283048;
   translate:  0;
   border-top: 1px solid var(--color-gold);
+  overflow: hidden;
 
   @starting-style {
     opacity: 0;
