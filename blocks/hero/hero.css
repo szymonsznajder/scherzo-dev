@@ -40,7 +40,7 @@ main .hero-container {
   margin-right: auto;
   color: white;
   align-self: flex-end;
-  z-index: 2;
+  z-index: 1;
 }
 
 .hero picture {
