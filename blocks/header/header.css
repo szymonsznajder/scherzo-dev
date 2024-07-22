@@ -65,6 +65,7 @@ header nav .nav-hamburger button {
   overflow: initial;
   text-overflow: initial;
   white-space: initial;
+  background: transparent;
 }
 
 header nav .nav-hamburger-icon,
@@ -100,6 +101,7 @@ header nav[aria-expanded="false"] .nav-hamburger-icon::after {
 }
 
 header nav[aria-expanded="true"] .nav-hamburger-icon {
+  color: var(--color-gold);
   height: 22px;
 }
 
@@ -125,7 +127,7 @@ header .nav-brand {
   grid-area: brand;
   top: 2rem;
   position: absolute;
-  z-index: 1;
+  z-index: ;
   justify-self: center;
 }
 
@@ -149,6 +151,7 @@ header nav .nav-sections {
   transition-duration: 1s;
   transition-behavior: allow-discrete;
   height: 90vh;
+  overflow: hidden;
 }
 
 header nav[aria-expanded="true"] .nav-sections {
@@ -181,6 +184,7 @@ header nav .nav-sections ul > li {
   font-family: var(--thin-font-family);
   font-size: var(--heading-font-size-xs);
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 header nav .nav-sections a:hover,
@@ -332,7 +336,7 @@ header nav .nav-sections .menu.three {
 }
 header nav .nav-sections .menu.three.slide-in {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateX(-100%);
   visibility: visible;
 }
 header nav .nav-sections .menu ul>li ul {
