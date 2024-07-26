@@ -1,166 +1,162 @@
-/* eslint-disable no-console */
-/* eslint-disable no-plusplus */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-shadow */
-/* eslint-disable no-restricted-syntax */
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/no-absolute-path */
+import { renderExpressions } from '/plusplus/plugins/expressions/src/expressions.js';
+
+// eslint-disable-next-line no-unused-vars
 export default async function decorate(block) {
-  const supportsWebP = window.createImageBitmap && window.createImageBitmap.toString().includes('native code');
-
-  async function fetchSlideHtml(path) {
-    try {
-      const response = await fetch(`${path}.plain.html`);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch HTML for slide: ${path}`);
-      }
-      return await response.text();
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  }
-
   async function fetchSlides() {
-    const response = await fetch('/slides/query-index.json');
-    const json = await response.json();
-
-    const slides = [];
-    for (const slide of json.data) {
-      slide.title = await fetchSlideHtml(slide.path);
-      slides.push(slide);
-    }
-    return slides;
-  }
-
-  function fetchSupportingText(html) {
-    if (!html) return null;
-
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-
-    // const h2 = doc.querySelector('h2');
-    // let firstParagraph = h2 ? h2.nextElementSibling : doc.querySelector('p');
-
-    // while (firstParagraph && firstParagraph.tagName.toLowerCase() !== 'p') {
-    //   firstParagraph = firstParagraph.nextElementSibling;
-    // }
-
-    const h1 = doc.querySelector('h1');
-    return h1?.textContent.trim() || null;
-  }
-
-  function setSlideBackground(slideItem, imageUrl) {
-    const finalImageUrl = supportsWebP
-      ? `${imageUrl}?width=2000&format=webply&optimize=medium`
-      : imageUrl;
-
-    const img = new Image();
-    img.src = finalImageUrl;
-
-    img.onload = () => {
-      slideItem.style.backgroundImage = `url(${finalImageUrl})`;
-      slideItem.classList.add('loaded');
-    };
-
-    img.onerror = () => {
-      console.error(`Failed to load image: ${finalImageUrl}`);
-    };
-  }
-
-  async function createPanel(slideData) {
-    let { html } = slideData;
-    if (!html) {
-      html = await fetchSlideHtml(slideData.path);
-      if (!html) {
-        console.error('Failed to fetch HTML content for this slide');
-        return;
+    try {
+      console.log('Fetching slides from /slides/query-index.json');
+      const response = await fetch('/slides/query-index.json');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+      const jsonFeed = await response.json();
+      console.log('Fetched JSON feed:', jsonFeed);
+
+      if (!jsonFeed.data || !Array.isArray(jsonFeed.data)) {
+        throw new Error('Invalid data format in JSON feed');
+      }
+
+      console.log(`Processing ${jsonFeed.data.length} items from JSON feed`);
+
+      const processedSlides = await Promise.all(jsonFeed.data.map(async (item, index) => {
+        console.log(`Processing item ${index + 1}:`, item);
+
+        if (!item.path || !item.path.startsWith('/slides/')) {
+          console.log(`Skipping item ${index + 1}: Invalid path`);
+          return null;
+        }
+
+        try {
+          console.log(`Fetching HTML for ${item.path}.plain.html`);
+          const htmlResponse = await fetch(`${item.path}.plain.html`);
+          if (!htmlResponse.ok) {
+            throw new Error(`Failed to fetch HTML for slide: ${item.path}`);
+          }
+          const html = await htmlResponse.text();
+
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          
+          const textElements = doc.querySelectorAll('.tytul-zdjecia > div > div');
+          const titleParts = Array.from(textElements)
+            .map(el => el.textContent.trim())
+            .filter(text => text);
+
+          console.log(`Title parts for item ${index + 1}:`, titleParts);
+
+          const imgElement = doc.querySelector('picture source[media="(min-width: 600px)"]');
+          let imageSrc = '';
+          if (imgElement) {
+            imageSrc = imgElement.getAttribute('srcset');
+            imageSrc = imageSrc.split('?')[0];
+          }
+          const absoluteImageSrc = imageSrc ? new URL(imageSrc, window.location.origin).href : '';
+
+          console.log(`Image source for item ${index + 1}:`, absoluteImageSrc);
+
+          return {
+            ...item,
+            titleParts,
+            image: absoluteImageSrc,
+            description: ''
+          };
+        } catch (error) {
+          console.error(`Error processing slide ${item.path}:`, error);
+          return null;
+        }
+      }));
+
+      const filteredSlides = processedSlides.filter(slide => slide !== null);
+      console.log(`Processed ${filteredSlides.length} valid slides`);
+      console.log('Processed slides:', filteredSlides);
+      return filteredSlides;
+    } catch (error) {
+      console.error('Error fetching or processing slides:', error);
+      return [];
     }
-
-    const panel = document.createElement('div');
-    panel.classList.add('slide-panel');
-    panel.innerHTML = `
-      <div class="slide-panel-content">
-        <div class="slide-panel-body"></div>
-      </div>
-      <button class="slide-panel-close" aria-label="Close panel">&times;</button>
-    `;
-    panel.querySelector('.slide-panel-body').innerHTML = html;
-
-    const closeButton = panel.querySelector('.slide-panel-close');
-    closeButton.addEventListener('click', () => {
-      panel.remove();
-    });
-
-    document.body.appendChild(panel);
-
-    // Ensure the close button is visible and above other content
-    setTimeout(() => {
-      closeButton.style.display = 'block';
-      closeButton.style.zIndex = '1001'; // Ensure this is higher than other elements
-    }, 0);
   }
 
-  async function createSlideItem(slideData, index) {
-    const {
-      image, title, description, path,
-    } = slideData;
-    const imageUrl = image.split('?')[0];
+  function createSlideItem(slideData) {
+    const { image, titleParts } = slideData;
 
     const slideItem = document.createElement('div');
     slideItem.classList.add('slide-builder-item');
-    slideItem.setAttribute('data-bg', imageUrl);
-    slideItem.setAttribute('data-slidenum', index + 1);
+    slideItem.setAttribute('data-bg', image);
+
+    const titleHtml = titleParts.map((part, i) => 
+      `<div class="title-part title-part-${i + 1}">${part}</div>`
+    ).join('');
 
     slideItem.innerHTML = `
+      <div class="slide-background"></div>
       <div class="text-container">
-        <h2>${title}</h2>
-        <p><strong>${description}</strong></p>
+        ${titleHtml}
       </div>
     `;
-
-    slideItem.addEventListener('click', () => createPanel(slideData));
-
-    // Fetch and append supporting text if available
-    // if (!slideData.html && window.innerWidth <= 799) {
-    //   slideData.html = await fetchSlideHtml(path);
-    // }
-
-    slideData.html = await fetchSlideHtml(path);
-
-    if (slideData.html) {
-      const supportingText = fetchSupportingText(slideData.html);
-      if (supportingText) {
-        const textContainer = slideItem.querySelector('.text-container');
-        textContainer.insertAdjacentHTML('beforeend', `
-          <p class="supporting-text">${supportingText}</p>
-        `);
-      }
-    }
 
     return slideItem;
   }
 
-  const container = document.querySelector('.slide-builder');
-  const slides = await fetchSlides();
-
-  const observer = new IntersectionObserver(
-    (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const slideItem = entry.target;
-          const imageUrl = slideItem.dataset.bg;
-          setSlideBackground(slideItem, imageUrl);
-          observer.unobserve(slideItem);
-        }
-      });
-    },
-    { rootMargin: '100px' },
-  );
-
-  for (let i = 0; i < slides.length; i++) {
-    const slideItem = await createSlideItem(slides[i], i);
-    observer.observe(slideItem);
-    container.appendChild(slideItem);
+  function setSlideBackground(slideItem, imageUrl) {
+    const backgroundElement = slideItem.querySelector('.slide-background');
+    backgroundElement.style.backgroundImage = `url(${imageUrl})`;
+    slideItem.classList.add('loaded');
   }
+
+  const container = document.querySelector('.slide-builder');
+  if (!container) {
+    console.error('Slide builder container not found');
+    return;
+  }
+
+  console.log('Fetching slides...');
+  const slides = await fetchSlides();
+  console.log('Fetched slides:', slides);
+
+  if (!slides || slides.length === 0) {
+    console.error('No valid slides found');
+    return;
+  }
+
+  let currentScrollPosition = 0;
+  const slideHeight = window.innerHeight;
+
+  slides.forEach((slide, index) => {
+    const slideItem = createSlideItem(slide);
+    container.appendChild(slideItem);
+    setSlideBackground(slideItem, slide.image);
+  });
+
+  function updateSlidePositions() {
+    const slideItems = container.querySelectorAll('.slide-builder-item');
+    slideItems.forEach((slideItem, index) => {
+      const offset = (index * slideHeight) - currentScrollPosition;
+      const progress = offset / slideHeight;
+      
+      // Adjust these values to control the overlap effect
+      const translateY = Math.max(0, Math.min(100, progress * 100));
+      const opacity = 1 - Math.abs(progress);
+      
+      slideItem.style.transform = `translateY(${translateY}%)`;
+      slideItem.style.opacity = opacity;
+      slideItem.style.zIndex = slides.length - index;
+    });
+  }
+
+  function handleScroll() {
+    currentScrollPosition = window.scrollY;
+    window.requestAnimationFrame(updateSlidePositions);
+  }
+
+  window.addEventListener('scroll', handleScroll);
+
+  // Set initial positions
+  updateSlidePositions();
+
+  // Set the height of the body to accommodate all slides
+  document.body.style.height = `${slides.length * 100}vh`;
+
+  renderExpressions(document.querySelector('.slide-builder'));
 }
