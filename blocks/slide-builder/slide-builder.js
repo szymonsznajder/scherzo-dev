@@ -135,13 +135,12 @@ export default async function decorate(block) {
       const offset = (index * slideHeight) - currentScrollPosition;
       const progress = offset / slideHeight;
       
-      // Adjust these values to control the overlap effect
+      // Keep the original translation calculation
       const translateY = Math.max(0, Math.min(100, progress * 100));
-      const opacity = 1 - Math.abs(progress);
       
       slideItem.style.transform = `translateY(${translateY}%)`;
-      slideItem.style.opacity = opacity;
-      slideItem.style.zIndex = slides.length - index;
+      // Correct the z-index calculation
+      slideItem.style.zIndex = index;
     });
   }
 

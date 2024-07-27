@@ -8,14 +8,14 @@
 }
 
 .slide-builder-item {
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100vh;
   top: 0;
   left: 0;
   overflow: hidden;
-  will-change: transform, opacity;
-  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+  will-change: transform;
+  transition: transform 0.5s ease-out;
 }
 
 .slide-background {
@@ -27,6 +27,8 @@
   background-size: cover;
   background-position: center;
 }
+
+/* Other styles remain the same */
 
 .text-container {
   position: absolute;
