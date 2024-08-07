@@ -241,9 +241,22 @@ main .section.highlight {
   background-color: var(--light-color);
 }
 
+.section.content {
+  max-width: 900px;
+  margin-inline: auto;
+  box-shadow: 0 0 0 100vmax var(--color-dark-blue);
+  clip-path: inset(0 -100vmax);
+  background: var(--color-dark-blue);
+  /* margin-top: 800px; */
+}
 
+.header-wrapper {
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}
 
-body:before {
+.header:before {
   position: absolute;
   z-index: 1;
   top: 0;

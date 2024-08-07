@@ -4,11 +4,16 @@ main .hero-container > div {
   
 main .hero-container {
   padding: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  min-height: 700px;
+  z-index: -1;
 }
 
 .hero {
   position: relative;
-  padding: 32px;
+  /* padding: 32px; */
   height: 700px;
 
   &::before {
@@ -18,7 +23,11 @@ main .hero-container {
     left: 0;
     height: 300px;
     width: 100%;
-    background: linear-gradient(0deg, rgba(30,36,54,0.9) 0%, rgba(29,59,94,0.7) 50%, rgba(0,131,255,0) 100%)
+    transparent), to(rgba(0, 0, 0, .7)));
+    background: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, .7));
+    background: -moz-linear-gradient(top, transparent 0, rgba(0, 0, 0, .7) 100%);
+    background: -o-linear-gradient(top, transparent 0, rgba(0, 0, 0, .7) 100%);
+    background: linear-gradient(180deg, transparent 0, rgba(0, 0, 0, .7));
   }
 }
 
@@ -58,7 +67,7 @@ main .hero-container {
 }
 
 .breadcrumbs {
-  transform: translateY(-4rem);
+  transform: translateY(-2rem);
 }
 
 .breadcrumbs ol {
@@ -73,5 +82,19 @@ main .hero-container {
   &:not(:last-child)::after {
     content: '-';
     margin: 0 0 0 1rem;
+  }
+}
+
+.section.title {
+  position:relative;
+  z-index: 2;
+  margin-top: 500px;
+  width: 100%;
+  margin-inline: auto;
+  text-align: center;
+  padding: 0;
+
+  & h1 {
+    text-shadow: 0 0 2px black;
   }
 }
