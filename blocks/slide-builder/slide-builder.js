@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable prefer-destructuring */
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/no-absolute-path */
 import { renderExpressions } from '/plusplus/plugins/expressions/src/expressions.js';
@@ -38,11 +40,11 @@ export default async function decorate(block) {
 
           const parser = new DOMParser();
           const doc = parser.parseFromString(html, 'text/html');
-          
+
           const textElements = doc.querySelectorAll('.tytul-zdjecia > div > div');
           const titleParts = Array.from(textElements)
-            .map(el => el.textContent.trim())
-            .filter(text => text);
+            .map((el) => el.textContent.trim())
+            .filter((text) => text);
 
           console.log(`Title parts for item ${index + 1}:`, titleParts);
 
@@ -60,7 +62,7 @@ export default async function decorate(block) {
             ...item,
             titleParts,
             image: absoluteImageSrc,
-            description: ''
+            description: '',
           };
         } catch (error) {
           console.error(`Error processing slide ${item.path}:`, error);
@@ -68,7 +70,7 @@ export default async function decorate(block) {
         }
       }));
 
-      const filteredSlides = processedSlides.filter(slide => slide !== null);
+      const filteredSlides = processedSlides.filter((slide) => slide !== null);
       console.log(`Processed ${filteredSlides.length} valid slides`);
       console.log('Processed slides:', filteredSlides);
       return filteredSlides;
@@ -85,9 +87,7 @@ export default async function decorate(block) {
     slideItem.classList.add('slide-builder-item');
     slideItem.setAttribute('data-bg', image);
 
-    const titleHtml = titleParts.map((part, i) => 
-      `<div class="title-part title-part-${i + 1}">${part}</div>`
-    ).join('');
+    const titleHtml = titleParts.map((part, i) => `<div class="title-part title-part-${i + 1}">${part}</div>`).join('');
 
     slideItem.innerHTML = `
       <div class="slide-background"></div>
@@ -134,10 +134,10 @@ export default async function decorate(block) {
     slideItems.forEach((slideItem, index) => {
       const offset = (index * slideHeight) - currentScrollPosition;
       const progress = offset / slideHeight;
-      
+
       // Keep the original translation calculation
       const translateY = Math.max(0, Math.min(100, progress * 100));
-      
+
       slideItem.style.transform = `translateY(${translateY}%)`;
       // Correct the z-index calculation
       slideItem.style.zIndex = index;
