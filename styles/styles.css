@@ -24,6 +24,7 @@
 
   /* fonts */
   --body-font-family: 'Montserrat-Regular';
+  --thin-font-family: 'Montserrat-thin';
   --body-bold-family: 'Montserrat-bold';
   --heading-font-family: 'Caveat-Bold';
 
@@ -102,9 +103,17 @@ h4, h5, h6 {
   scroll-margin: calc(var(--nav-height) + 1em);
 }
 
-h1 { font-size: var(--heading-font-size-xxl);}
-h2 { font-size: var(--heading-font-size-xl);}
-h3 { font-size: var(--heading-font-size-l);}
+h1 { 
+  font-size: var(--heading-font-size-xxl);
+}
+
+h2 {
+  font-size: var(--heading-font-size-xl);
+}
+
+h3 {
+  font-size: var(--heading-font-size-l);
+}
 
 h4 { 
   font-size: var(--heading-font-size-xs);
@@ -219,7 +228,7 @@ main img {
 
 /* sections */
 main .section {
-  padding: 64px 16px;
+  padding: 34px 16px;
 }
 
 @media (width >= 600px) {

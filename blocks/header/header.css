@@ -43,6 +43,8 @@ header nav p {
 
 header nav a:any-link {
   color: currentcolor;
+  font-size: var(--heading-font-size-xs);
+  text-transform: uppercase;
 }
 
 /* hamburger */
@@ -63,6 +65,7 @@ header nav .nav-hamburger button {
   overflow: initial;
   text-overflow: initial;
   white-space: initial;
+  background: transparent;
 }
 
 header nav .nav-hamburger-icon,
@@ -123,7 +126,7 @@ header .nav-brand {
   grid-area: brand;
   top: 2rem;
   position: absolute;
-  z-index: 1;
+  z-index: 0;
   justify-self: center;
 }
 
@@ -142,7 +145,7 @@ header nav .nav-sections {
   grid-area: sections;
   display: none;
   opacity: 0;
-  translate:  0 -25vh;
+  translate:  0 -10vh;
   transition-property: overlay display opacity;
   transition-duration: 1s;
   transition-behavior: allow-discrete;
@@ -154,8 +157,10 @@ header nav[aria-expanded="true"] .nav-sections {
   align-items: center;
   justify-content: center;
   opacity: 1;
-  background-color: #005c7c;
+  background-color: #283048;
   translate:  0;
+  border-top: 1px solid var(--color-gold);
+  overflow: hidden;
 
   @starting-style {
     opacity: 0;
@@ -175,7 +180,20 @@ header nav .nav-sections ul  {
 }
 
 header nav .nav-sections ul > li {
-  font-weight: 700;
+  font-family: var(--thin-font-family);
+  font-size: var(--heading-font-size-xs);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+header nav .nav-sections a:hover,
+header nav .nav-sections a:focus {
+  color: var(--color-gold);
+  text-decoration: none;
+}
+
+header nav .nav-sections ul li.has-children:after {
+  content: '>';
 }
 
 header nav .nav-sections ul > li > ul {
@@ -225,9 +243,6 @@ header nav .nav-sections ul > li > ul > li {
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded="true"] > ul {
-    display: block;
-    position: absolute;
-    left: -1em;
     width: 200px;
     margin-top: 12px;
     padding: 1em;
@@ -256,3 +271,83 @@ header nav .nav-sections ul > li > ul > li {
 header nav .nav-tools {
   grid-area: tools;
 }
+
+/*
+* Navigation slide-in effect
+*/
+header nav .nav-sections .menu  {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  padding: 0px;
+  position: relative;
+  top: 0;
+  width: 33.333%;
+  text-align: center;
+}
+header nav .nav-sections .menu.hide {
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+header nav .nav-sections .menu.one {
+  padding: 0;
+  transform: translateX(100%);
+  transition: all .3s ease;
+}
+
+header nav .nav-sections .menu.one.slide-in {
+  padding: 0 10px 0 0;
+  transform: translateX(0);
+}
+
+header nav .nav-sections .menu.two {
+  opacity: 0;
+  transform: translateX(50%);
+  transition: all .3s ease;
+  visibility: hidden;
+}
+
+
+header nav .nav-sections .menu.two.slide-in {
+  opacity: 1;
+  transform: translateX(0);
+  visibility: visible;
+}
+
+header nav .back a {
+  position: relative;
+}
+
+header nav .back a:before {
+  content: '<';
+  position: absolute;
+  left: -1rem;
+  
+}
+
+header nav .nav-sections .menu.three {
+  opacity: 0;
+  transform: translateX(50%);
+  transition: all .3s ease;
+  visibility: hidden;
+}
+
+header nav .nav-sections .menu.three.slide-in {
+  opacity: 1;
+  transform: translateX(-100%);
+  visibility: visible;
+}
+
+header nav .nav-sections .menu ul>li ul {
+  display: none;
+}
+
+@media (width >= 900px) {
+  header nav .nav-sections .menu.three.slide-in {
+    opacity: 1;
+    transform: translateX(0%);
+    visibility: visible;
+  }
+}  

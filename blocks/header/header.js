@@ -167,18 +167,28 @@ export default async function decorate(block) {
     brandLink.closest('.button-container').className = '';
   }
 
-  const navSections = nav.querySelector('.nav-sections');
-  if (navSections) {
-    navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
-      if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
-      navSection.addEventListener('click', () => {
-        const expanded = navSection.getAttribute('aria-expanded') === 'true';
-        toggleAllNavSections(navSections);
-        navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-      });
+  // Hide logo on scroll down and reveal on scroll up
+  function fadeNavBrandOnScroll() {
+    let lastScrollTop = 0;
+
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (scrollTop > 200 && scrollTop > lastScrollTop) {
+        // Scrolling down
+        navBrand.style.opacity = '0';
+      } else if (scrollTop < 200) {
+        // Scrolling up and reaching minimum offset of 200px
+        navBrand.style.opacity = '1';
+      }
+
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // For Mobile or negative scrolling
     });
   }
 
+  fadeNavBrandOnScroll();
+
+  const navSections = nav.querySelector('.nav-sections');
   // hamburger for all viewports
   const hamburger = document.createElement('div');
   hamburger.classList.add('nav-hamburger');
@@ -196,7 +206,133 @@ export default async function decorate(block) {
 
   const heroWrapper = document.querySelector('.hero-wrapper');
 
-  if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
-    heroWrapper.append(await buildBreadcrumbs());
+  // if (getMetadata('breadcrumbs').toLowerCase() === 'true') {
+  //   heroWrapper.append(await buildBreadcrumbs());
+  // }
+
+  // ===== START: add slide-in navigation effect
+  function getWindowWidth() {
+    return window.innerWidth;
   }
+  const schizoMenu = {
+    menuBtn: document.querySelector('.nav-hamburger > button'),
+    menusWrap: document.querySelector('.nav-sections'),
+    init: () => {
+      schizoMenu.menusWrap.querySelector('.default-content-wrapper').classList.add('menu', 'one');
+      const divClasses = ['two', 'three'];
+      for (let i = 0; i < 2; i++) {
+        const menuDiv = document.createElement('div');
+        const documentFragment = document.createDocumentFragment();
+        const div = document.createElement('div');
+        const a = document.createElement('a');
+        a.setAttribute('href', '/');
+        div.classList.add('back');
+        div.append(a);
+        documentFragment.append(div);
+        menuDiv.append(documentFragment);
+        menuDiv.classList.add('menu', divClasses[i]);
+        schizoMenu.menusWrap.append(menuDiv);
+      }
+
+      schizoMenu.menusWrap.querySelectorAll('.menu ul > li').forEach((item) => {
+        if (item.querySelectorAll('ul').length) {
+          item.classList.add('has-children');
+        }
+      });
+      schizoMenu.registerEvents();
+      schizoMenu.openSubmenus();
+    },
+    openSubmenus: () => {
+      const e = schizoMenu.menusWrap.querySelectorAll('.menu.one ul > li.active > a:not([href="/"])');
+      if (e.length) {
+        schizoMenu.copyMenuSecondLvl(e);
+        schizoMenu.slideInSecondLvl();
+        schizoMenu.slideOutThirdLvl();
+        const n = e.parentNode.querySelectorAll('> ul > li.active');
+        if (n.length) {
+          schizoMenu.copyMenuThirdLvl(n);
+          schizoMenu.slideInThirdLvl();
+        }
+      }
+    },
+    registerEvents: () => {
+      schizoMenu.menuBtn.addEventListener('click', (e) => {
+        if (e.target.classList.contains('isActive')) {
+          schizoMenu.closeMenu();
+        } else {
+          schizoMenu.openMenu();
+        }
+      });
+      schizoMenu.menusWrap.querySelectorAll('.menu.one ul > li > a').forEach((item) => {
+        item.addEventListener('click', (e) => {
+          if (e.target.parentNode.classList.contains('has-children')) {
+            e.preventDefault();
+            schizoMenu.copyMenuSecondLvl(e);
+            schizoMenu.slideInSecondLvl();
+            schizoMenu.slideOutThirdLvl();
+          }
+        });
+      });
+      schizoMenu.menusWrap.querySelectorAll('.menu.two .back a').forEach((item) => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          if (e.target.getAttribute('temp_disable') !== 'disabled') schizoMenu.slideOutSecondLvl();
+        });
+      });
+      schizoMenu.menusWrap.querySelector('.menu.two').addEventListener('click', (e) => {
+        e.preventDefault();
+        if (e.target.parentNode.classList.contains('has-children')) {
+          console.log(e.target);
+          schizoMenu.copyMenuThirdLvl(e);
+          schizoMenu.slideInThirdLvl();
+        }
+      });
+      schizoMenu.menusWrap.querySelectorAll('.menu.three .back a').forEach((item) => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          schizoMenu.slideOutThirdLvl();
+        });
+      });
+    },
+    closeMenu: () => {
+      schizoMenu.menuBtn.classList.remove('isActive');
+    },
+    openMenu: () => {
+      schizoMenu.menuBtn.classList.add('isActive');
+    },
+    slideInSecondLvl: () => {
+      schizoMenu.menusWrap.querySelector('.menu.one').classList.add('slide-in');
+      schizoMenu.menusWrap.querySelector('.menu.two').classList.add('slide-in');
+      if (getWindowWidth() < 992) schizoMenu.menusWrap.querySelector('.menu.one').classList.add('hide');
+    },
+    slideOutSecondLvl: () => {
+      schizoMenu.menusWrap.querySelector('.menu.one').classList.remove('slide-in');
+      schizoMenu.menusWrap.querySelector('.menu.two').classList.remove('slide-in');
+      schizoMenu.menusWrap.querySelector('.menu.three').classList.remove('slide-in');
+      if (getWindowWidth() < 992) schizoMenu.menusWrap.querySelector('.menu.one').classList.remove('hide');
+      schizoMenu.menusWrap.querySelector('menu.two').classList.remove('hide');
+    },
+    copyMenuSecondLvl: (e) => {
+      const secondLeveMenu = schizoMenu.menusWrap.querySelector('.menu.two ul');
+      if (secondLeveMenu) secondLeveMenu.remove();
+      schizoMenu.menusWrap.querySelector('.menu.two').append(e.target.parentNode.querySelector('ul').cloneNode(true));
+      schizoMenu.menusWrap.querySelector('.menu.two .back a').textContent = e.target.parentNode.querySelector(':scope > a').textContent;
+    },
+    slideInThirdLvl: () => {
+      schizoMenu.menusWrap.querySelector('.menu.three').classList.add('slide-in');
+      if (getWindowWidth() < 992) schizoMenu.menusWrap.querySelector('.menu.two').classList.add('hide');
+    },
+    slideOutThirdLvl: () => {
+      schizoMenu.menusWrap.querySelector('.menu.three').classList.remove('slide-in');
+      if (getWindowWidth() < 992) schizoMenu.menusWrap.querySelector('.menu.two').classList.remove('hide');
+    },
+    copyMenuThirdLvl: (e) => {
+      const thirdLevelMenu = schizoMenu.menusWrap.querySelector('.menu.three ul');
+      if (thirdLevelMenu) thirdLevelMenu.remove();
+      schizoMenu.menusWrap.querySelector('.menu.three').append(e.target.parentNode.querySelector(':scope ul').cloneNode(true));
+      schizoMenu.menusWrap.querySelector('.menu.three .back a').textContent = e.target.parentNode.querySelector(':scope > a').textContent;
+    },
+  };
+  schizoMenu.init();
+  // ===== END: add slide-in navigation effect
 }
